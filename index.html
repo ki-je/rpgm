@@ -185,6 +185,7 @@
         .codex-card li { margin-bottom: 5px; list-style-type: square; color: var(--c-text-muted); }
         .codex-card p { color: var(--c-text-muted); }
 
+        /* 지역 심볼 아이콘 CSS */
         .region-icon {
             position: absolute; right: 15px; top: 15px; width: 60px; height: 60px;
             object-fit: contain; opacity: 0.15; transition: 0.3s; z-index: 0; pointer-events: none;
@@ -192,91 +193,92 @@
         .codex-card:hover .region-icon { opacity: 0.8; transform: scale(1.1); }
         .codex-card h4, .codex-card ul, .codex-card p { position: relative; z-index: 1; }
 
+        /* 경지(Tier) UI */
         .tier-container { display: flex; flex-direction: column; align-items: center; margin: 20px 0; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; border: 1px dashed rgba(197,160,89,0.3); }
         .tier-step { background: linear-gradient(45deg, var(--c-navy), var(--c-dark-gray)); padding: 10px 30px; border: 1px solid var(--c-gold); color: #fff; font-weight: bold; min-width: 200px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 4px; }
         .tier-arrow { color: var(--c-gold); font-size: 1.5rem; margin: 10px 0; }
 
+        /* 뒤로가기 버튼 */
         .btn-back { position: fixed; top: 30px; right: 40px; color: var(--c-gold); border: 1px solid var(--c-gold); padding: 10px 20px; cursor: pointer; background: transparent; transition: 0.3s; font-family: var(--font-title); z-index: 100; }
         .btn-back:hover { background: var(--c-gold); color: var(--c-black); }
 
         /* ==========================================================================
            [3부] 2-2 페이지 (인물 도감)
            ========================================================================== */
-        #page-chars { background: var(--c-black); }
-        
+        /* 배경 이미지를 완전히 제거하고 깔끔한 다크 그라데이션으로 변경 */
+        #page-chars { 
+            background: radial-gradient(circle at center, var(--c-dark-gray), var(--c-black)); 
+        }
+
         .char-layout { position: relative; z-index: 10; display: flex; height: 100vh; padding: 50px; justify-content: space-between; }
         
         /* 좌측: 목차 */
-        .char-list { width: 200px; flex-shrink: 0; }
+        .char-list { width: 250px; }
         .char-list h2 { font-size: 2rem; color: var(--c-gold); border-bottom: 1px solid var(--c-gold); padding-bottom: 10px; margin-bottom: 30px; }
         .char-list ul li { margin-bottom: 15px; font-size: 1.2rem; color: var(--c-silver); cursor: pointer; transition: 0.3s; opacity: 0.5; }
         .char-list ul li:hover { opacity: 0.8; }
         .char-list ul li.active { color: var(--c-gold); opacity: 1; font-weight: bold; transform: translateX(10px); }
 
         /* 중앙: 인물 상세 정보 */
-        .char-details-container { flex: 1; margin: 0 40px; position: relative; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+        .char-details-container { flex: 1; margin: 0 50px; position: relative; display: flex; flex-direction: column; justify-content: center; }
         .char-view { display: none; animation: slideUp 0.5s ease forwards; }
         .char-view.active { display: block; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 대사 폰트 크기 및 여백 축소 */
-        .char-quote { font-size: 1.8rem; font-family: var(--font-title); color: #fff; text-shadow: 2px 2px 10px #000; margin-bottom: 25px; font-style: italic; }
+        /* 폰트 크기 축소 및 단어 단위 줄바꿈 설정 */
+        .char-quote { 
+            font-size: 1.8rem; 
+            font-family: var(--font-title); 
+            color: #fff; 
+            text-shadow: 2px 2px 10px #000; 
+            margin-bottom: 30px; 
+            font-style: italic; 
+            word-break: keep-all; 
+            max-width: 850px;
+            line-height: 1.4;
+        }
         
-        .char-info-card { flex: 1; min-width: 320px; max-width: 420px; position: relative; }
+        .char-info-card { min-width: 380px; position: relative; flex: 1;}
         .char-info-card h3 { font-size: 3rem; color: var(--c-gold); margin-bottom: 20px; font-family: var(--font-title); letter-spacing: 5px; }
         .char-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .char-table th { text-align: left; padding: 10px 0; color: var(--c-silver); border-bottom: 1px solid rgba(255,255,255,0.1); width: 100px; }
         .char-table td { padding: 10px 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .faction-symbol { position: absolute; right: 20px; bottom: 20px; width: 80px; height: 80px; object-fit: contain; opacity: 0.8; }
 
-        /* --------------------------------------------------------------------------
-           우측: 갤러리 이미지 레이아웃 (세로형1 + 가로형2)
-           -------------------------------------------------------------------------- */
-        .char-visuals { display: flex; gap: 20px; flex-shrink: 0; }
-        
-        /* 공통 액자 스타일 */
-        .frame {
-            border: 2px solid var(--c-gold); padding: 5px;
+        /* 우측 갤러리 영역: 가로 비율로 변경 (16:9 느낌) */
+        .char-gallery { display: flex; flex-direction: column; gap: 20px; }
+        .char-gallery .frame {
+            width: 360px; height: 200px; border: 2px solid var(--c-gold); padding: 5px;
             background: rgba(0,0,0,0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-            position: relative; overflow: hidden;
+            position: relative;
         }
-        .frame::before {
+        .char-gallery .frame::before {
             content:''; position: absolute; top:-5px; left:-5px; right:-5px; bottom:-5px;
-            border: 1px solid rgba(197,160,89,0.5); pointer-events: none; z-index: 2;
+            border: 1px solid rgba(197,160,89,0.5); pointer-events: none;
         }
-        .frame img { width: 100%; height: 100%; object-fit: cover; z-index: 1; position: relative; }
+        .char-gallery img { width: 100%; height: 100%; object-fit: cover; }
 
-        /* 이름1.png: 좌측 세로 초상화 */
-        .frame.portrait { width: 220px; height: 330px; }
-        
-        /* 중앙 위/아래 가로형 이미지 그룹 */
-        .landscape-group { display: flex; flex-direction: column; gap: 20px; }
-        
-        /* 이름2.png, 이름3.png: 우측 가로 갤러리 */
-        .frame.landscape { width: 300px; height: 155px; } /* 높이 합치면 155+155+20 = 330px 로 초상화와 딱 맞음 */
-
-        /* 우측 끝 초상화 슬라이더 (폭을 최소화하여 중앙 컨텐츠 간섭 방지) */
-        .char-right-panel { display: flex; align-items: center; justify-content: flex-end; width: 100px; flex-shrink: 0; }
-        
+        /* 우측 끝 초상화 원형 네비게이션 */
+        .char-right-panel { display: flex; align-items: center; justify-content: flex-end; }
         .portrait-slider {
-            height: 80vh; width: 100px; display: flex; flex-direction: column; align-items: center;
+            height: 80vh; width: 120px; display: flex; flex-direction: column; align-items: center;
             justify-content: center; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
         .portrait-track { display: flex; flex-direction: column; gap: 30px; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
         .portrait-item {
-            width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--c-silver);
+            width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--c-silver);
             overflow: hidden; opacity: 0.4; transform: scale(0.8); transition: all 0.4s;
             cursor: pointer; display: flex; align-items: center; justify-content: center;
-            background: var(--c-navy); color: var(--c-silver); font-size: 0.7rem; text-align: center; line-height: 1.2;
+            background: var(--c-navy); color: var(--c-silver); font-size: 0.8rem; text-align: center; line-height: 1.2;
         }
         .portrait-item.active {
             opacity: 1; transform: scale(1.3); border-color: var(--c-gold);
             box-shadow: 0 0 20px var(--c-gold); z-index: 10; color: var(--c-gold); font-weight: bold;
         }
-        .scroll-indicator { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); color: var(--c-silver); font-size: 0.8rem; animation: pulseGlow 2s infinite; text-align: center; width: 100%;}
+        .scroll-indicator { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--c-silver); font-size: 0.9rem; animation: pulseGlow 2s infinite; text-align: center;}
     </style>
 </head>
 <body>
@@ -302,6 +304,7 @@
         </div>
     </section>
 
+
     <!-- ==========================================================================
          [2부] 세계관 (코덱스) 데이터 출력
          ========================================================================== -->
@@ -318,24 +321,48 @@
                 </ul>
             </aside>
             <main class="world-content">
-                <!-- (세계관 내용은 이전과 동일하게 유지됩니다) -->
+                
                 <!-- 개요 -->
                 <article id="overview" class="codex-section visible">
                     <h2 class="title-gold">개요</h2>
                     <div class="deco-line"></div>
+                    
                     <h3>세계</h3>
                     <div class="metal-panel">
-                        <p>행성 <strong>엘룬트</strong><br>마법과 다양한 종족, 여러 왕국이 공존하는 정통 서양 판타지 세계.</p>
+                        <p>행성 <strong>엘룬트</strong><br>
+                        마법과 다양한 종족, 여러 왕국이 공존하는 정통 서양 판타지 세계.</p>
                     </div>
+
                     <h3>종족</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">인간</h4><ul><li>최다 인구</li><li>뛰어난 적응력</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">엘프</h4><ul><li>장수</li><li>정령술 특화</li><li>신중, 고지식</li><li>평생 한 명의 배우자</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">수인</h4><ul><li>동물 특성을 가진 아인종</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">천사</h4><ul><li>천계 출신, 신성력 보유</li><li>개인 전투력 최고</li><li>인구 최저, 번식 욕구 낮음</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">악마</h4><ul><li>지하계 출신</li><li>암흑력 보유</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">마물 / 마족</h4><ul><li>마물: 야생 괴물, 몬스터</li><li>마족: 중간계 태생의 지성체 마물</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">기타</h4><ul><li>드래곤, 인어, 기타 종족</li></ul></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">인간</h4>
+                            <ul><li>최다 인구</li><li>뛰어난 적응력</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">엘프</h4>
+                            <ul><li>장수</li><li>정령술 특화</li><li>신중, 고지식</li><li>평생 한 명의 배우자</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">수인</h4>
+                            <ul><li>동물 특성을 가진 아인종</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">천사</h4>
+                            <ul><li>천계 출신, 신성력 보유</li><li>개인 전투력 최고</li><li>인구 최저, 번식 욕구 낮음</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">악마</h4>
+                            <ul><li>지하계 출신</li><li>암흑력 보유</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">마물 / 마족</h4>
+                            <ul><li>마물: 야생 괴물, 몬스터</li><li>마족: 중간계 태생의 지성체 마물</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">기타</h4>
+                            <ul><li>드래곤, 인어, 기타 종족</li></ul>
+                        </div>
                     </div>
                 </article>
 
@@ -343,22 +370,65 @@
                 <article id="regions" class="codex-section">
                     <h2 class="title-gold">지역</h2>
                     <div class="deco-line"></div>
+
                     <h3>세계 구분</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">천계 (프리데)</h4><p>천사 거주지</p></div>
-                        <div class="codex-card"><h4 class="title-gold">중간계</h4><p>다양한 종족이 공존하는 주 무대</p></div>
-                        <div class="codex-card"><h4 class="title-gold">지하계 (우르테인)</h4><p>악마 거주지</p></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">천계 (프리데)</h4>
+                            <p>천사 거주지</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">중간계</h4>
+                            <p>다양한 종족이 공존하는 주 무대</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">지하계 (우르테인)</h4>
+                            <p>악마 거주지</p>
+                        </div>
                     </div>
+
                     <h3>중간계 주요 대륙 및 지역</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">중앙대륙 (아퀴논)</h4><img src="아퀴논.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>최대 규모</li><li>왕실, 귀족, 자본가 중심</li><li>다종족 공존</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">동대륙 (그람하스)</h4><img src="그람하스.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>미개발 지역</li><li>위험한 동식물, 마물 서식</li><li>극소수 마족 거주</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">서대륙 (메르사)</h4><img src="메르사.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>엘프 왕국</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">남대륙 (크로헨)</h4><img src="크로헨.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>수인 왕국</li><li>부족 단위 사회</li><li>영역 구분이 엄격</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">북대륙 (안트룸)</h4><img src="안트룸.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>지식의 땅</li><li>마탑, 마법사, 마법공학자 중심</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">남섬 (아그리아)</h4><img src="아그리아.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>신성연방</li><li>사제는 성력을 사용 (신력 불가)</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">동섬</h4><img src="동섬.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>드래곤의 둥지</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">서쪽 해역 (유벤타)</h4><img src="유벤타.png" alt="" class="region-icon" onerror="this.style.display='none'"><ul><li>인어 왕국</li></ul></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">중앙대륙 (아퀴논)</h4>
+                            <img src="아퀴논.png" alt="아퀴논 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>최대 규모</li><li>왕실, 귀족, 자본가 중심</li><li>다종족 공존</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">동대륙 (그람하스)</h4>
+                            <img src="그람하스.png" alt="그람하스 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>미개발 지역</li><li>위험한 동식물, 마물 서식</li><li>극소수 마족 거주</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">서대륙 (메르사)</h4>
+                            <img src="메르사.png" alt="메르사 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>엘프 왕국</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">남대륙 (크로헨)</h4>
+                            <img src="크로헨.png" alt="크로헨 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>수인 왕국</li><li>부족 단위 사회</li><li>영역 구분이 엄격</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">북대륙 (안트룸)</h4>
+                            <img src="안트룸.png" alt="안트룸 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>지식의 땅</li><li>마탑, 마법사, 마법공학자 중심</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">남섬 (아그리아)</h4>
+                            <img src="아그리아.png" alt="아그리아 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>신성연방</li><li>사제는 성력을 사용 (신력 불가)</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">동섬</h4>
+                            <img src="동섬.png" alt="동섬 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>드래곤의 둥지</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">서쪽 해역 (유벤타)</h4>
+                            <img src="유벤타.png" alt="유벤타 심볼" class="region-icon" onerror="this.style.display='none'">
+                            <ul><li>인어 왕국</li></ul>
+                        </div>
                     </div>
                 </article>
 
@@ -366,25 +436,107 @@
                 <article id="abilities" class="codex-section">
                     <h2 class="title-gold">능력 / 경지</h2>
                     <div class="deco-line"></div>
+
                     <h3>능력 체계</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">⚔️ 검술</h4><ul><li>오러를 사용하는 근접 전투</li><li>주 사용 종족 : 인간</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">🔮 마법</h4><ul><li>마나(마력)를 사용</li><li>모든 종족 사용 가능</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">🍃 정령술</h4><ul><li>정령과 계약하여 사용</li><li>엘프 전용 능력</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">🧪 연금술</h4><ul><li>약초학, 물약 제작, 치료</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">🎵 요력</h4><ul><li>인어 고유 능력</li><li>노래를 통해 발동</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">🌑 암흑력</h4><ul><li>악마 고유 능력</li><li>파괴적인 힘</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">✨ 성력 (Holy)</h4><ul><li>정화, 치유, 보호, 결계, 축복</li><li>신앙을 통해 천사가 아닌 종족도 습득 가능</li></ul></div>
-                        <div class="codex-card"><h4 class="title-gold">⚡ 신력 (Divine)</h4><ul><li>계시, 천벌, 신성강림, 언령</li><li>오직 천사만 사용 가능한 고위 권능</li></ul></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">⚔️ 검술</h4>
+                            <ul><li>오러를 사용하는 근접 전투</li><li>주 사용 종족 : 인간</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">🔮 마법</h4>
+                            <ul><li>마나(마력)를 사용</li><li>모든 종족 사용 가능</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">🍃 정령술</h4>
+                            <ul><li>정령과 계약하여 사용</li><li>엘프 전용 능력</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">🧪 연금술</h4>
+                            <ul><li>약초학, 물약 제작, 치료</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">🎵 요력</h4>
+                            <ul><li>인어 고유 능력</li><li>노래를 통해 발동</li></ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">🌑 암흑력</h4>
+                            <ul><li>악마 고유 능력</li><li>파괴적인 힘</li></ul>
+                        </div>
+                        
+                        <div class="codex-card">
+                            <h4 class="title-gold">✨ 성력 (Holy)</h4>
+                            <ul>
+                                <li>정화, 치유, 보호, 결계, 축복</li>
+                                <li>신앙을 통해 천사가 아닌 종족도 습득 가능</li>
+                            </ul>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">⚡ 신력 (Divine)</h4>
+                            <ul>
+                                <li>계시, 천벌, 신성강림, 언령</li>
+                                <li>오직 천사만 사용 가능한 고위 권능</li>
+                            </ul>
+                        </div>
                     </div>
+
                     <h3>경지 (Tier)</h3>
                     <div style="display: flex; gap: 40px; overflow-x: auto; padding: 20px 0;">
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">검술 (오러)</h4><div class="tier-container"><div class="tier-step">소드유저</div><div class="tier-arrow">↓</div><div class="tier-step">소드엑스퍼트</div><div class="tier-arrow">↓</div><div class="tier-step">소드마스터</div><div class="tier-arrow">↓</div><div class="tier-step">그랜드마스터</div></div></div>
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">연금술</h4><div class="tier-container"><div class="tier-step">초급</div><div class="tier-arrow">↓</div><div class="tier-step">하급</div><div class="tier-arrow">↓</div><div class="tier-step">중급</div><div class="tier-arrow">↓</div><div class="tier-step">상급</div><div class="tier-arrow">↓</div><div class="tier-step">최상급</div></div></div>
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">정령술</h4><div class="tier-container"><div class="tier-step">E</div><div class="tier-arrow">↓</div><div class="tier-step">D</div><div class="tier-arrow">↓</div><div class="tier-step">C</div><div class="tier-arrow">↓</div><div class="tier-step">B</div><div class="tier-arrow">↓</div><div class="tier-step">A</div><div class="tier-arrow">↓</div><div class="tier-step">S (정령왕)</div></div></div>
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">신성력</h4><div class="tier-container"><div class="tier-step">일반급 (초록)</div><div class="tier-arrow">↓</div><div class="tier-step">정예급 (주황)</div><div class="tier-arrow">↓</div><div class="tier-step">전설급 (금)</div><div class="tier-arrow">↓</div><div class="tier-step">초월급 (흰색)</div></div></div>
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">암흑력</h4><div class="tier-container"><div class="tier-step">기원 (회색)</div><div class="tier-arrow">↓</div><div class="tier-step">각성 (보라)</div><div class="tier-arrow">↓</div><div class="tier-step">불멸 (진홍)</div><div class="tier-arrow">↓</div><div class="tier-step">멸세 (검정)</div></div></div>
-                        <div style="flex:1; min-width: 250px;"><h4 class="title-gold" style="text-align: center;">마법</h4><div class="tier-container"><div class="tier-step" style="height:100%; display:flex; align-items:center; justify-content:center;">1 ~ 10 서클</div></div></div>
+                        <!-- 경지 내용은 동일 -->
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">검술 (오러)</h4>
+                            <div class="tier-container">
+                                <div class="tier-step">소드유저</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">소드엑스퍼트</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">소드마스터</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">그랜드마스터</div>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">연금술</h4>
+                            <div class="tier-container">
+                                <div class="tier-step">초급</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">하급</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">중급</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">상급</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">최상급</div>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">정령술</h4>
+                            <div class="tier-container">
+                                <div class="tier-step">E</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">D</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">C</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">B</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">A</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">S (정령왕)</div>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">신성력</h4>
+                            <div class="tier-container">
+                                <div class="tier-step">일반급 (초록)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">정예급 (주황)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">전설급 (금)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">초월급 (흰색)</div>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">암흑력</h4>
+                            <div class="tier-container">
+                                <div class="tier-step">기원 (회색)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">각성 (보라)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">불멸 (진홍)</div><div class="tier-arrow">↓</div>
+                                <div class="tier-step">멸세 (검정)</div>
+                            </div>
+                        </div>
+                        <div style="flex:1; min-width: 250px;">
+                            <h4 class="title-gold" style="text-align: center;">마법</h4>
+                            <div class="tier-container">
+                                <div class="tier-step" style="height:100%; display:flex; align-items:center; justify-content:center;">1 ~ 10 서클</div>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
@@ -392,36 +544,60 @@
                 <article id="adventure" class="codex-section">
                     <h2 class="title-gold">모험 / 길드 / 임무</h2>
                     <div class="deco-line"></div>
+
                     <h3>길드 및 조직</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">모험가 길드</h4><p>공익을 목적으로 하며, 국가 위탁이나 대규모 토벌 등 주로 집단 임무를 수행합니다.</p></div>
-                        <div class="codex-card"><h4 class="title-gold">용병 길드</h4><p>사익을 추구하며, 의뢰인과 직접 거래하여 개인 단위의 다양한 의뢰를 처리합니다.</p></div>
-                        <div class="codex-card"><h4 class="title-gold">정보 길드 & 암조직</h4><p>정보 매매를 전문으로 하거나, 암살 등 비공식적인 뒷세계 업무를 처리합니다.</p></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">모험가 길드</h4>
+                            <p>공익을 목적으로 하며, 국가 위탁이나 대규모 토벌 등 주로 집단 임무를 수행합니다.</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">용병 길드</h4>
+                            <p>사익을 추구하며, 의뢰인과 직접 거래하여 개인 단위의 다양한 의뢰를 처리합니다.</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">정보 길드 & 암조직</h4>
+                            <p>정보 매매를 전문으로 하거나, 암살 등 비공식적인 뒷세계 업무를 처리합니다.</p>
+                        </div>
                     </div>
+
                     <h3>마물</h3>
                     <div class="metal-panel">
                         <p><strong>[특징]</strong> 낮은 지능과 공격적인 성향을 지녔으며, 서식지 환경에 따라 식물, 곤충, 언데드 등 다양한 형태로 진화했습니다.</p>
                         <p style="margin-top: 15px;"><strong>[규모]</strong> 떼를 지어 다니는 소형 개체부터, 단독으로 재앙급 피해를 주는 초대형 개체까지 존재합니다.</p>
                     </div>
+
                     <h3>활동 개요</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">의뢰</h4><p>약초 채집, 유적 조사, 호위 등 일상 및 탐색 중심의 일거리입니다.</p></div>
-                        <div class="codex-card"><h4 class="title-gold">임무</h4><p>토벌, 레이드, 던전 공략 등 전투 및 위험도가 높은 작전입니다.</p></div>
-                        <div class="codex-card"><h4 class="title-gold">특수 지역</h4><p>해저, 화산, 빙궁 등 극한의 환경으로 특수한 대비가 필요한 구역입니다.</p></div>
-                        <div class="codex-card"><h4 class="title-gold">던전</h4><p>미궁, 탑, 초현실 공간 등 마물과 함정이 도사리는 독립 구역입니다.</p></div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">의뢰</h4>
+                            <p>약초 채집, 유적 조사, 호위 등 일상 및 탐색 중심의 일거리입니다.</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">임무</h4>
+                            <p>토벌, 레이드, 던전 공략 등 전투 및 위험도가 높은 작전입니다.</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">특수 지역</h4>
+                            <p>해저, 화산, 빙궁 등 극한의 환경으로 특수한 대비가 필요한 구역입니다.</p>
+                        </div>
+                        <div class="codex-card">
+                            <h4 class="title-gold">던전</h4>
+                            <p>미궁, 탑, 초현실 공간 등 마물과 함정이 도사리는 독립 구역입니다.</p>
+                        </div>
                     </div>
                 </article>
+
             </main>
         </div>
     </section>
+
 
     <!-- ==========================================================================
          [3부] 인물 소개 (캐릭터 도감) 및 자바스크립트
          ========================================================================== -->
     <section id="page-chars" class="page-section">
         <button class="btn-back" onclick="navigateTo('page-main')">돌아가기</button>
-        
-        <!-- 백그라운드 이미지 완전 제거됨 -->
 
         <div class="char-layout">
             <!-- 좌측 목차 -->
@@ -451,9 +627,12 @@
 
     <!-- 스크립트: 데이터 관리 및 인터랙션 -->
     <script>
+        // 1. 페이지 전환 로직
         function navigateTo(pageId) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
+            
+            // 페이지 초기화 애니메이션 발동
             if(pageId === 'page-world') {
                 const sections = document.querySelectorAll('.codex-section');
                 sections.forEach(s => s.classList.remove('visible'));
@@ -461,6 +640,7 @@
             }
         }
 
+        // 2. 세계관 스크롤 스파이 (우측 컨텐츠 스크롤 시 좌측 메뉴 하이라이트 & 페이드인)
         const worldContent = document.querySelector('.world-content');
         const codexSections = document.querySelectorAll('.codex-section');
         const navLinks = document.querySelectorAll('.world-nav a');
@@ -490,6 +670,7 @@
             });
         });
 
+        // 3. 인물 데이터베이스 (데이터 변형 없이 원본 그대로 사용)
         const characters = [
             {
                 name: "발루네", gender: "남성", age: "약 400세", height: "196cm",
@@ -553,6 +734,7 @@
             }
         ];
 
+        // 4. 인물 도감 DOM 렌더링
         const menuUl = document.getElementById('char-menu');
         const detailsWrapper = document.getElementById('char-details-wrapper');
         const track = document.getElementById('portrait-track');
@@ -565,16 +747,13 @@
             li.id = `menu-${index}`;
             menuUl.appendChild(li);
 
-            // 중앙 상세 정보 & 갤러리 생성 (구조 전면 개편)
+            // 중앙 상세 정보 & 갤러리 생성 (이름2.png, 이름3.png 사용)
             const view = document.createElement('div');
             view.className = 'char-view';
             view.id = `view-${index}`;
             view.innerHTML = `
                 <div class="char-quote">"${char.quote}"</div>
-                
-                <div style="display: flex; gap: 30px; align-items: stretch; flex-wrap: wrap;">
-                    
-                    <!-- 1. 정보 카드 -->
+                <div style="display: flex; gap: 40px; align-items: stretch;">
                     <div class="metal-panel char-info-card">
                         <h3>${char.name}</h3>
                         <table class="char-table">
@@ -586,42 +765,30 @@
                             <tr><th>능력</th><td>${char.ability}</td></tr>
                             <tr><th>성격</th><td>${char.keywords}</td></tr>
                         </table>
+                        <!-- 소속 심볼 이미지 (지역명.png 등) -->
                         <img src="${char.factionImg}" alt="${char.faction}" class="faction-symbol" onerror="this.style.display='none'">
                     </div>
                     
-                    <!-- 2. 우측 비주얼 갤러리 영역 -->
-                    <div class="char-visuals">
-                        <!-- 이름1.png: 좌측 세로 초상화 -->
-                        <div class="frame portrait">
-                            <img src="${char.name}1.png" alt="${char.name} 초상화" onerror="this.style.opacity='0.2'">
-                        </div>
-                        
-                        <!-- 이름2.png, 이름3.png: 우측 가로형 상/하 배치 -->
-                        <div class="landscape-group">
-                            <div class="frame landscape">
-                                <img src="${char.name}2.png" alt="${char.name} 갤러리 상단" onerror="this.style.opacity='0.2'">
-                            </div>
-                            <div class="frame landscape">
-                                <img src="${char.name}3.png" alt="${char.name} 갤러리 하단" onerror="this.style.opacity='0.2'">
-                            </div>
-                        </div>
+                    <div class="char-gallery">
+                        <div class="frame"><img src="${char.name}2.png" alt="${char.name} 갤러리 상단" onerror="this.style.opacity='0.2'"></div>
+                        <div class="frame"><img src="${char.name}3.png" alt="${char.name} 갤러리 하단" onerror="this.style.opacity='0.2'"></div>
                     </div>
-                    
                 </div>
             `;
             detailsWrapper.appendChild(view);
 
-            // 우측 초상화 노드 생성
+            // 우측 초상화 슬라이더 생성 (이름1.png 사용)
             const portrait = document.createElement('div');
             portrait.className = 'portrait-item';
             portrait.id = `portrait-${index}`;
-            portrait.innerText = char.name; 
-            portrait.style.backgroundImage = `url('${char.name}1.png')`; 
+            portrait.innerText = char.name; // 이미지 없을시 이름으로 대체
+            portrait.style.backgroundImage = `url('${char.name}1.png')`;
             portrait.style.backgroundSize = 'cover';
             portrait.onclick = () => selectCharacter(index);
             track.appendChild(portrait);
         });
 
+        // 5. 캐릭터 전환 인터랙션 로직
         let currentCharIndex = 0;
         let isAnimating = false;
 
@@ -640,7 +807,7 @@
             document.getElementById(`portrait-${index}`).classList.add('active');
 
             // 초상화 트랙 이동 (중앙 정렬)
-            const itemHeight = 70 + 30; // height + gap
+            const itemHeight = 80 + 30; // height + gap
             const offset = (track.parentElement.offsetHeight / 2) - (itemHeight / 2) - (index * itemHeight);
             track.style.transform = `translateY(${offset}px)`;
         }
@@ -656,11 +823,14 @@
             
             isAnimating = true;
             if(e.deltaY > 0) {
+                // 스크롤 다운 -> 다음 캐릭터
                 if(currentCharIndex < characters.length - 1) selectCharacter(currentCharIndex + 1);
             } else {
+                // 스크롤 업 -> 이전 캐릭터
                 if(currentCharIndex > 0) selectCharacter(currentCharIndex - 1);
             }
-            setTimeout(() => { isAnimating = false; }, 600); 
+            
+            setTimeout(() => { isAnimating = false; }, 600); // 쿨타임
         });
 
     </script>
