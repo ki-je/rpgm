@@ -22,7 +22,6 @@
             --c-panel-bg: rgba(15, 20, 35, 0.85);
             --font-title: 'Cinzel', 'Noto Serif KR', serif;
             --font-body: 'Noto Serif KR', serif;
-            --transition: 0.3s;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,6 +47,7 @@
             height: 100vh;
             position: fixed;
             top: 0; left: 0;
+            overflow: hidden;
             animation: fadeIn 0.8s ease forwards;
         }
         .page-section.active { display: block; }
@@ -70,10 +70,6 @@
             border-radius: 4px;
             padding: 30px;
         }
-
-        /* 뒤로가기 버튼 */
-        .btn-back { position: fixed; top: 30px; right: 40px; color: var(--c-gold); border: 1px solid var(--c-gold); padding: 10px 20px; cursor: pointer; background: transparent; transition: var(--transition); font-family: var(--font-title); z-index: 100; }
-        .btn-back:hover { background: var(--c-gold); color: var(--c-black); }
 
         /* ==========================================================================
            1페이지 (메인 히어로 & 분할 화면)
@@ -159,12 +155,11 @@
             border-right: 1px solid rgba(197, 160, 89, 0.3);
             position: sticky; top: 0; height: 100vh;
             background: linear-gradient(to right, rgba(15, 20, 35, 0.9), transparent);
-            overflow-y: auto;
         }
         .world-sidebar h2 { font-size: 1.5rem; margin-bottom: 40px; color: var(--c-gold); }
         .world-nav li { margin-bottom: 20px; }
         .world-nav a {
-            font-size: 1.1rem; color: var(--c-silver); transition: var(--transition);
+            font-size: 1.1rem; color: var(--c-silver); transition: 0.3s;
             display: block; padding: 10px; border-left: 2px solid transparent;
         }
         .world-nav a:hover, .world-nav a.active {
@@ -183,7 +178,7 @@
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .codex-card { 
             background: rgba(26, 26, 36, 0.8); border: 1px solid rgba(160, 165, 176, 0.2); 
-            padding: 20px; border-radius: 4px; transition: var(--transition); position: relative; overflow: hidden;
+            padding: 20px; border-radius: 4px; transition: 0.3s; position: relative; overflow: hidden;
         }
         .codex-card:hover { border-color: var(--c-gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .codex-card ul { margin-top: 10px; padding-left: 20px; }
@@ -193,7 +188,7 @@
         /* 지역 심볼 아이콘 CSS */
         .region-icon {
             position: absolute; right: 15px; top: 15px; width: 60px; height: 60px;
-            object-fit: contain; opacity: 0.15; transition: var(--transition); z-index: 0; pointer-events: none;
+            object-fit: contain; opacity: 0.15; transition: 0.3s; z-index: 0; pointer-events: none;
         }
         .codex-card:hover .region-icon { opacity: 0.8; transform: scale(1.1); }
         .codex-card h4, .codex-card ul, .codex-card p { position: relative; z-index: 1; }
@@ -203,34 +198,50 @@
         .tier-step { background: linear-gradient(45deg, var(--c-navy), var(--c-dark-gray)); padding: 10px 30px; border: 1px solid var(--c-gold); color: #fff; font-weight: bold; min-width: 200px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 4px; }
         .tier-arrow { color: var(--c-gold); font-size: 1.5rem; margin: 10px 0; }
 
+        /* 뒤로가기 버튼 */
+        .btn-back { position: fixed; top: 30px; right: 40px; color: var(--c-gold); border: 1px solid var(--c-gold); padding: 10px 20px; cursor: pointer; background: transparent; transition: 0.3s; font-family: var(--font-title); z-index: 100; }
+        .btn-back:hover { background: var(--c-gold); color: var(--c-black); }
+
         /* ==========================================================================
-           [3부] 2-2 페이지 (인물 도감)
-           ========================================================================= */
+           [3부] 2-2 페이지 (인물 도감) -- ※ 레이아웃 짤림/여백 수정됨 ※
+           ========================================================================== */
         #page-chars { 
             background: radial-gradient(circle at center, var(--c-dark-gray), var(--c-black)); 
-            overflow-y: auto; /* 화면 잘림 방지: 자체 스크롤 활성화 */
+            overflow-y: auto; /* 내용이 넘치면 스크롤 가능하도록 추가 */
         }
 
         .char-layout { 
-            position: relative; z-index: 10; display: flex; min-height: 100vh; padding: 100px 50px 50px; justify-content: space-between; 
-            overflow: hidden; /* 내부 스크롤을 위해 고정된 컨테이너 역할 */
+            position: relative; 
+            z-index: 10; 
+            display: flex; 
+            min-height: 100vh; /* height 대신 min-height를 사용하여 화면이 잘리지 않고 늘어나도록 수정 */
+            padding: 50px; 
+            justify-content: space-between; 
         }
         
         /* 좌측: 목차 */
-        .char-list { width: 220px; flex-shrink: 0; overflow-y: auto; }
+        .char-list { 
+            width: 220px; 
+            position: sticky; /* 스크롤을 내려도 메뉴가 고정되도록 추가 */
+            top: 50px;
+            height: fit-content;
+        }
         .char-list h2 { font-size: 2rem; color: var(--c-gold); border-bottom: 1px solid var(--c-gold); padding-bottom: 10px; margin-bottom: 30px; }
-        .char-list ul li { margin-bottom: 15px; font-size: 1.2rem; color: var(--c-silver); cursor: pointer; transition: var(--transition); opacity: 0.5; }
+        .char-list ul li { margin-bottom: 15px; font-size: 1.2rem; color: var(--c-silver); cursor: pointer; transition: 0.3s; opacity: 0.5; }
         .char-list ul li:hover { opacity: 0.8; }
         .char-list ul li.active { color: var(--c-gold); opacity: 1; font-weight: bold; transform: translateX(10px); }
 
-        /* 중앙: 인물 상세 정보 및 갤러리 */
+        /* 중앙: 인물 상세 정보 */
         .char-details-container { 
-            flex: 1; margin: 0 50px; position: relative; 
-            display: flex; flex-direction: column; 
-            overflow-y: auto; /* 화면 잘림 방지: 중앙 영역에 내부 스크롤 적용 */
-            scroll-behavior: smooth;
+            flex: 1; 
+            margin: 0 50px; 
+            position: relative; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-start; /* center일 경우 높이가 넘치면 위아래로 잘리는 현상을 방지하기 위해 수정 */
+            padding-bottom: 50px;
         }
-        .char-view { display: none; animation: slideUp 0.5s ease forwards; padding-bottom: 50px; }
+        .char-view { display: none; animation: slideUp 0.5s ease forwards; }
         .char-view.active { display: block; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -246,15 +257,16 @@
             word-break: keep-all; 
             max-width: 850px;
             line-height: 1.4;
+            margin-top: 20px;
         }
 
         /* 데이터 박스 & 갤러리를 가로로 배치하는 컨테이너 */
         .char-content-flex {
             display: flex; gap: 40px; 
-            align-items: flex-start; /* 여백 문제 해결: 콘텐츠 크기에 맞춤 */
+            align-items: flex-start; /* stretch(기본값)에서 flex-start로 변경하여 왼쪽 정보 박스 하단의 이상한 빈 공간 제거 */
         }
         
-        /* 데이터 박스 */
+        /* 데이터 박스 (너비 고정) */
         .char-info-card { 
             width: 420px; 
             flex-shrink: 0; 
@@ -266,7 +278,7 @@
         .char-table td { padding: 10px 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .faction-symbol { position: absolute; right: 20px; bottom: 20px; width: 80px; height: 80px; object-fit: contain; opacity: 0.8; }
 
-        /* 우측 갤러리 영역 */
+        /* 우측 갤러리 영역 (남은 공간을 모두 차지하며 큼직하게 렌더링) */
         .char-gallery { 
             flex: 1; 
             display: flex; 
@@ -275,7 +287,7 @@
         }
         .char-gallery .frame {
             width: 100%; 
-            max-width: 800px;
+            max-width: 800px; /* 너무 과도하게 커지는 것 방지 */
             aspect-ratio: 16 / 9; /* 완벽한 와이드 가로 비율 고정 */
             border: 2px solid var(--c-gold); padding: 5px;
             background: rgba(0,0,0,0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.8);
@@ -288,9 +300,14 @@
         .char-gallery img { width: 100%; height: 100%; object-fit: cover; }
 
         /* 우측 끝 초상화 원형 네비게이션 */
-        .char-right-panel { display: flex; align-items: center; justify-content: flex-end; width: 120px; flex-shrink: 0; }
+        .char-right-panel { 
+            display: flex; align-items: center; justify-content: flex-end; 
+            position: sticky; /* 스크롤을 내려도 슬라이더가 고정되도록 추가 */
+            top: 50px;
+            height: calc(100vh - 100px);
+        }
         .portrait-slider {
-            height: 80vh; width: 100%; display: flex; flex-direction: column; align-items: center;
+            height: 80vh; width: 120px; display: flex; flex-direction: column; align-items: center;
             justify-content: center; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
@@ -307,33 +324,6 @@
             box-shadow: 0 0 20px var(--c-gold); z-index: 10; color: var(--c-gold); font-weight: bold;
         }
         .scroll-indicator { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--c-silver); font-size: 0.9rem; animation: pulseGlow 2s infinite; text-align: center;}
-
-        /* ==========================================================================
-           [4부] 반응형 CSS (최적화)
-           ========================================================================== */
-        @media (max-width: 1400px) {
-            .char-layout { padding-top: 120px; }
-            .char-list { width: 180px; }
-            .char-details-container { margin: 0 30px; }
-            .char-content-flex { flex-direction: column; gap: 30px; }
-            .char-info-card { width: 100%; }
-            .char-gallery { width: 100%; }
-            .char-right-panel { width: 100px; }
-        }
-
-        @media (max-width: 1024px) {
-            .char-layout { flex-direction: column; padding: 120px 20px 50px; }
-            .char-list { width: 100%; max-height: 150px; margin-bottom: 30px; border-bottom: 1px solid var(--c-gold); padding-bottom: 10px;}
-            .char-list h2 { font-size: 1.5rem; margin-bottom: 15px; text-align: center;}
-            .char-list ul { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;}
-            .char-list ul li { margin-bottom: 0; font-size: 1rem;}
-            .char-details-container { margin: 0; overflow-y: visible; }
-            .char-right-panel { width: 100%; justify-content: center; margin-top: 30px;}
-            .portrait-slider { height: auto; width: 100%; max-width: 500px;}
-            .portrait-track { flex-direction: row; gap: 20px; padding: 20px 0;}
-            .portrait-item { width: 60px; height: 60px; }
-            .portrait-item.active { transform: scale(1.2); }
-        }
     </style>
 </head>
 <body>
@@ -349,14 +339,14 @@
                 <span>▼</span>
             </div>
         </div>
-        <main id="split-screen" class="split-screen">
+        <div id="split-screen" class="split-screen">
             <div class="split-section" onclick="navigateTo('page-world')">
                 <h2>세계관</h2>
             </div>
             <div class="split-section" onclick="navigateTo('page-chars')">
                 <h2>인물 소개</h2>
             </div>
-        </main>
+        </div>
     </section>
 
 
@@ -368,14 +358,12 @@
         <div class="world-overlay">
             <aside class="world-sidebar">
                 <h2>ELUNT CODEX</h2>
-                <nav class="world-nav">
-                    <ul>
-                        <li><a href="#overview" class="active">개요</a></li>
-                        <li><a href="#regions">지역</a></li>
-                        <li><a href="#abilities">능력 / 경지</a></li>
-                        <li><a href="#adventure">모험 / 길드 / 임무</a></li>
-                    </ul>
-                </nav>
+                <ul class="world-nav">
+                    <li><a href="#overview" class="active">개요</a></li>
+                    <li><a href="#regions">지역</a></li>
+                    <li><a href="#abilities">능력 / 경지</a></li>
+                    <li><a href="#adventure">모험 / 길드 / 임무</a></li>
+                </ul>
             </aside>
             <main class="world-content">
                 
@@ -539,6 +527,7 @@
 
                     <h3>경지 (Tier)</h3>
                     <div style="display: flex; gap: 40px; overflow-x: auto; padding: 20px 0;">
+                        <!-- 경지 내용은 동일 -->
                         <div style="flex:1; min-width: 250px;">
                             <h4 class="title-gold" style="text-align: center;">검술 (오러)</h4>
                             <div class="tier-container">
@@ -650,19 +639,19 @@
 
 
     <!-- ==========================================================================
-         [3부] 인물 소개 (캐릭터 도감)
+         [3부] 인물 소개 (캐릭터 도감) 및 자바스크립트
          ========================================================================== -->
     <section id="page-chars" class="page-section">
         <button class="btn-back" onclick="navigateTo('page-main')">돌아가기</button>
 
-        <main class="char-layout">
+        <div class="char-layout">
             <!-- 좌측 목차 -->
-            <nav class="char-list">
+            <div class="char-list">
                 <h2>인물 소개</h2>
                 <ul id="char-menu">
                     <!-- JS에서 렌더링 -->
                 </ul>
-            </nav>
+            </div>
 
             <!-- 중앙 상세 정보 및 갤러리 -->
             <div class="char-details-container" id="char-details-wrapper">
@@ -670,16 +659,14 @@
             </div>
 
             <!-- 우측 초상화 슬라이더 -->
-            <aside class="char-right-panel">
+            <div class="char-right-panel">
                 <div class="portrait-slider" id="portrait-slider">
                     <div class="portrait-track" id="portrait-track">
-                        <!-- JS에서 렌더링 -->
+                        <!-- 사용자 JS가 들어가는 부분이라 태그만 닫아두었습니다 -->
                     </div>
-                    <div class="scroll-indicator">▲<br>SCROLL<br>▼</div>
                 </div>
-            </aside>
-        </main>
+            </div>
+        </div>
     </section>
-
 </body>
 </html>
