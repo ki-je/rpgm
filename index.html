@@ -22,6 +22,7 @@
             --c-panel-bg: rgba(15, 20, 35, 0.85);
             --font-title: 'Cinzel', 'Noto Serif KR', serif;
             --font-body: 'Noto Serif KR', serif;
+            --transition: 0.3s;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,7 +48,6 @@
             height: 100vh;
             position: fixed;
             top: 0; left: 0;
-            overflow: hidden;
             animation: fadeIn 0.8s ease forwards;
         }
         .page-section.active { display: block; }
@@ -70,6 +70,10 @@
             border-radius: 4px;
             padding: 30px;
         }
+
+        /* 뒤로가기 버튼 */
+        .btn-back { position: fixed; top: 30px; right: 40px; color: var(--c-gold); border: 1px solid var(--c-gold); padding: 10px 20px; cursor: pointer; background: transparent; transition: var(--transition); font-family: var(--font-title); z-index: 100; }
+        .btn-back:hover { background: var(--c-gold); color: var(--c-black); }
 
         /* ==========================================================================
            1페이지 (메인 히어로 & 분할 화면)
@@ -155,11 +159,12 @@
             border-right: 1px solid rgba(197, 160, 89, 0.3);
             position: sticky; top: 0; height: 100vh;
             background: linear-gradient(to right, rgba(15, 20, 35, 0.9), transparent);
+            overflow-y: auto;
         }
         .world-sidebar h2 { font-size: 1.5rem; margin-bottom: 40px; color: var(--c-gold); }
         .world-nav li { margin-bottom: 20px; }
         .world-nav a {
-            font-size: 1.1rem; color: var(--c-silver); transition: 0.3s;
+            font-size: 1.1rem; color: var(--c-silver); transition: var(--transition);
             display: block; padding: 10px; border-left: 2px solid transparent;
         }
         .world-nav a:hover, .world-nav a.active {
@@ -178,7 +183,7 @@
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .codex-card { 
             background: rgba(26, 26, 36, 0.8); border: 1px solid rgba(160, 165, 176, 0.2); 
-            padding: 20px; border-radius: 4px; transition: 0.3s; position: relative; overflow: hidden;
+            padding: 20px; border-radius: 4px; transition: var(--transition); position: relative; overflow: hidden;
         }
         .codex-card:hover { border-color: var(--c-gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .codex-card ul { margin-top: 10px; padding-left: 20px; }
@@ -188,7 +193,7 @@
         /* 지역 심볼 아이콘 CSS */
         .region-icon {
             position: absolute; right: 15px; top: 15px; width: 60px; height: 60px;
-            object-fit: contain; opacity: 0.15; transition: 0.3s; z-index: 0; pointer-events: none;
+            object-fit: contain; opacity: 0.15; transition: var(--transition); z-index: 0; pointer-events: none;
         }
         .codex-card:hover .region-icon { opacity: 0.8; transform: scale(1.1); }
         .codex-card h4, .codex-card ul, .codex-card p { position: relative; z-index: 1; }
@@ -198,29 +203,34 @@
         .tier-step { background: linear-gradient(45deg, var(--c-navy), var(--c-dark-gray)); padding: 10px 30px; border: 1px solid var(--c-gold); color: #fff; font-weight: bold; min-width: 200px; text-align: center; box-shadow: 0 0 10px rgba(0,0,0,0.5); border-radius: 4px; }
         .tier-arrow { color: var(--c-gold); font-size: 1.5rem; margin: 10px 0; }
 
-        /* 뒤로가기 버튼 */
-        .btn-back { position: fixed; top: 30px; right: 40px; color: var(--c-gold); border: 1px solid var(--c-gold); padding: 10px 20px; cursor: pointer; background: transparent; transition: 0.3s; font-family: var(--font-title); z-index: 100; }
-        .btn-back:hover { background: var(--c-gold); color: var(--c-black); }
-
         /* ==========================================================================
            [3부] 2-2 페이지 (인물 도감)
-           ========================================================================== */
+           ========================================================================= */
         #page-chars { 
             background: radial-gradient(circle at center, var(--c-dark-gray), var(--c-black)); 
+            overflow-y: auto; /* 화면 잘림 방지: 자체 스크롤 활성화 */
         }
 
-        .char-layout { position: relative; z-index: 10; display: flex; height: 100vh; padding: 50px; justify-content: space-between; }
+        .char-layout { 
+            position: relative; z-index: 10; display: flex; min-height: 100vh; padding: 100px 50px 50px; justify-content: space-between; 
+            overflow: hidden; /* 내부 스크롤을 위해 고정된 컨테이너 역할 */
+        }
         
         /* 좌측: 목차 */
-        .char-list { width: 220px; }
+        .char-list { width: 220px; flex-shrink: 0; overflow-y: auto; }
         .char-list h2 { font-size: 2rem; color: var(--c-gold); border-bottom: 1px solid var(--c-gold); padding-bottom: 10px; margin-bottom: 30px; }
-        .char-list ul li { margin-bottom: 15px; font-size: 1.2rem; color: var(--c-silver); cursor: pointer; transition: 0.3s; opacity: 0.5; }
+        .char-list ul li { margin-bottom: 15px; font-size: 1.2rem; color: var(--c-silver); cursor: pointer; transition: var(--transition); opacity: 0.5; }
         .char-list ul li:hover { opacity: 0.8; }
         .char-list ul li.active { color: var(--c-gold); opacity: 1; font-weight: bold; transform: translateX(10px); }
 
-        /* 중앙: 인물 상세 정보 */
-        .char-details-container { flex: 1; margin: 0 50px; position: relative; display: flex; flex-direction: column; justify-content: center; }
-        .char-view { display: none; animation: slideUp 0.5s ease forwards; }
+        /* 중앙: 인물 상세 정보 및 갤러리 */
+        .char-details-container { 
+            flex: 1; margin: 0 50px; position: relative; 
+            display: flex; flex-direction: column; 
+            overflow-y: auto; /* 화면 잘림 방지: 중앙 영역에 내부 스크롤 적용 */
+            scroll-behavior: smooth;
+        }
+        .char-view { display: none; animation: slideUp 0.5s ease forwards; padding-bottom: 50px; }
         .char-view.active { display: block; }
         
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -240,10 +250,11 @@
 
         /* 데이터 박스 & 갤러리를 가로로 배치하는 컨테이너 */
         .char-content-flex {
-            display: flex; gap: 40px; align-items: stretch;
+            display: flex; gap: 40px; 
+            align-items: flex-start; /* 여백 문제 해결: 콘텐츠 크기에 맞춤 */
         }
         
-        /* 데이터 박스 (너비 고정) */
+        /* 데이터 박스 */
         .char-info-card { 
             width: 420px; 
             flex-shrink: 0; 
@@ -255,7 +266,7 @@
         .char-table td { padding: 10px 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .faction-symbol { position: absolute; right: 20px; bottom: 20px; width: 80px; height: 80px; object-fit: contain; opacity: 0.8; }
 
-        /* 우측 갤러리 영역 (남은 공간을 모두 차지하며 큼직하게 렌더링) */
+        /* 우측 갤러리 영역 */
         .char-gallery { 
             flex: 1; 
             display: flex; 
@@ -264,7 +275,7 @@
         }
         .char-gallery .frame {
             width: 100%; 
-            max-width: 800px; /* 너무 과도하게 커지는 것 방지 */
+            max-width: 800px;
             aspect-ratio: 16 / 9; /* 완벽한 와이드 가로 비율 고정 */
             border: 2px solid var(--c-gold); padding: 5px;
             background: rgba(0,0,0,0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.8);
@@ -277,9 +288,9 @@
         .char-gallery img { width: 100%; height: 100%; object-fit: cover; }
 
         /* 우측 끝 초상화 원형 네비게이션 */
-        .char-right-panel { display: flex; align-items: center; justify-content: flex-end; }
+        .char-right-panel { display: flex; align-items: center; justify-content: flex-end; width: 120px; flex-shrink: 0; }
         .portrait-slider {
-            height: 80vh; width: 120px; display: flex; flex-direction: column; align-items: center;
+            height: 80vh; width: 100%; display: flex; flex-direction: column; align-items: center;
             justify-content: center; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
@@ -296,6 +307,33 @@
             box-shadow: 0 0 20px var(--c-gold); z-index: 10; color: var(--c-gold); font-weight: bold;
         }
         .scroll-indicator { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: var(--c-silver); font-size: 0.9rem; animation: pulseGlow 2s infinite; text-align: center;}
+
+        /* ==========================================================================
+           [4부] 반응형 CSS (최적화)
+           ========================================================================== */
+        @media (max-width: 1400px) {
+            .char-layout { padding-top: 120px; }
+            .char-list { width: 180px; }
+            .char-details-container { margin: 0 30px; }
+            .char-content-flex { flex-direction: column; gap: 30px; }
+            .char-info-card { width: 100%; }
+            .char-gallery { width: 100%; }
+            .char-right-panel { width: 100px; }
+        }
+
+        @media (max-width: 1024px) {
+            .char-layout { flex-direction: column; padding: 120px 20px 50px; }
+            .char-list { width: 100%; max-height: 150px; margin-bottom: 30px; border-bottom: 1px solid var(--c-gold); padding-bottom: 10px;}
+            .char-list h2 { font-size: 1.5rem; margin-bottom: 15px; text-align: center;}
+            .char-list ul { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;}
+            .char-list ul li { margin-bottom: 0; font-size: 1rem;}
+            .char-details-container { margin: 0; overflow-y: visible; }
+            .char-right-panel { width: 100%; justify-content: center; margin-top: 30px;}
+            .portrait-slider { height: auto; width: 100%; max-width: 500px;}
+            .portrait-track { flex-direction: row; gap: 20px; padding: 20px 0;}
+            .portrait-item { width: 60px; height: 60px; }
+            .portrait-item.active { transform: scale(1.2); }
+        }
     </style>
 </head>
 <body>
@@ -311,14 +349,14 @@
                 <span>▼</span>
             </div>
         </div>
-        <div id="split-screen" class="split-screen">
+        <main id="split-screen" class="split-screen">
             <div class="split-section" onclick="navigateTo('page-world')">
                 <h2>세계관</h2>
             </div>
             <div class="split-section" onclick="navigateTo('page-chars')">
                 <h2>인물 소개</h2>
             </div>
-        </div>
+        </main>
     </section>
 
 
@@ -330,12 +368,14 @@
         <div class="world-overlay">
             <aside class="world-sidebar">
                 <h2>ELUNT CODEX</h2>
-                <ul class="world-nav">
-                    <li><a href="#overview" class="active">개요</a></li>
-                    <li><a href="#regions">지역</a></li>
-                    <li><a href="#abilities">능력 / 경지</a></li>
-                    <li><a href="#adventure">모험 / 길드 / 임무</a></li>
-                </ul>
+                <nav class="world-nav">
+                    <ul>
+                        <li><a href="#overview" class="active">개요</a></li>
+                        <li><a href="#regions">지역</a></li>
+                        <li><a href="#abilities">능력 / 경지</a></li>
+                        <li><a href="#adventure">모험 / 길드 / 임무</a></li>
+                    </ul>
+                </nav>
             </aside>
             <main class="world-content">
                 
@@ -499,7 +539,6 @@
 
                     <h3>경지 (Tier)</h3>
                     <div style="display: flex; gap: 40px; overflow-x: auto; padding: 20px 0;">
-                        <!-- 경지 내용은 동일 -->
                         <div style="flex:1; min-width: 250px;">
                             <h4 class="title-gold" style="text-align: center;">검술 (오러)</h4>
                             <div class="tier-container">
@@ -611,19 +650,19 @@
 
 
     <!-- ==========================================================================
-         [3부] 인물 소개 (캐릭터 도감) 및 자바스크립트
+         [3부] 인물 소개 (캐릭터 도감)
          ========================================================================== -->
     <section id="page-chars" class="page-section">
         <button class="btn-back" onclick="navigateTo('page-main')">돌아가기</button>
 
-        <div class="char-layout">
+        <main class="char-layout">
             <!-- 좌측 목차 -->
-            <div class="char-list">
+            <nav class="char-list">
                 <h2>인물 소개</h2>
                 <ul id="char-menu">
                     <!-- JS에서 렌더링 -->
                 </ul>
-            </div>
+            </nav>
 
             <!-- 중앙 상세 정보 및 갤러리 -->
             <div class="char-details-container" id="char-details-wrapper">
@@ -631,223 +670,16 @@
             </div>
 
             <!-- 우측 초상화 슬라이더 -->
-            <div class="char-right-panel">
+            <aside class="char-right-panel">
                 <div class="portrait-slider" id="portrait-slider">
                     <div class="portrait-track" id="portrait-track">
                         <!-- JS에서 렌더링 -->
                     </div>
-                    <div class="scroll-hint scroll-indicator">휠 스크롤<br>▼</div>
+                    <div class="scroll-indicator">▲<br>SCROLL<br>▼</div>
                 </div>
-            </div>
-        </div>
+            </aside>
+        </main>
     </section>
 
-    <!-- 스크립트: 데이터 관리 및 인터랙션 -->
-    <script>
-        // 1. 페이지 전환 로직
-        function navigateTo(pageId) {
-            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            
-            // 페이지 초기화 애니메이션 발동
-            if(pageId === 'page-world') {
-                const sections = document.querySelectorAll('.codex-section');
-                sections.forEach(s => s.classList.remove('visible'));
-                setTimeout(() => checkScrollSpy(), 100);
-            }
-        }
-
-        // 2. 세계관 스크롤 스파이 (우측 컨텐츠 스크롤 시 좌측 메뉴 하이라이트 & 페이드인)
-        const worldContent = document.querySelector('.world-content');
-        const codexSections = document.querySelectorAll('.codex-section');
-        const navLinks = document.querySelectorAll('.world-nav a');
-
-        function checkScrollSpy() {
-            let current = '';
-            codexSections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (worldContent.scrollTop >= sectionTop - 200) {
-                    current = section.getAttribute('id');
-                    section.classList.add('visible');
-                }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current)) {
-                    link.classList.add('active');
-                }
-            });
-        }
-        worldContent.addEventListener('scroll', checkScrollSpy);
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                worldContent.scrollTo({ top: target.offsetTop - 50, behavior: 'smooth' });
-            });
-        });
-
-        // 3. 인물 데이터베이스 (데이터 변형 없이 원본 그대로 사용)
-        const characters = [
-            {
-                name: "발루네", gender: "남성", age: "약 400세", height: "196cm",
-                race: "악마", faction: "우르테인 / 악마군 제1지휘관", ability: "암흑력 (멸세)",
-                keywords: "전투광, 유치함, 뻔뻔함", quote: "하! 그 정도로 나를 쓰러뜨릴 수 있을 거라 생각했나?",
-                factionImg: "우르테인.png"
-            },
-            {
-                name: "아자란", gender: "남성", age: "약 200세", height: "183cm",
-                race: "악마", faction: "우르테인 / 악마군 제2지휘관", ability: "암흑력 (불멸)",
-                keywords: "냉철, 계산적, 집요함", quote: "이런건 계획에 없었지만, 나름 흥미롭습니다.",
-                factionImg: "우르테인.png"
-            },
-            {
-                name: "시쿠아", gender: "남성", age: "약 100세", height: "158cm",
-                race: "악마", faction: "우르테인 / 악마군 제3지휘관", ability: "방대한 암흑력 (미숙)",
-                keywords: "천진난만, 먹보, 인정욕구", quote: "우와! 이거 맛있어! 너도 한 입 먹어볼래?",
-                factionImg: "우르테인.png"
-            },
-            {
-                name: "카미엘", gender: "남성", age: "약 300세", height: "188cm",
-                race: "천사", faction: "프리데 / 상급천사", ability: "신성력 (초월급)",
-                keywords: "원칙주의, 회의적, 완벽주의", quote: "신의 뜻에 어긋나는 행동은 용납할 수 없습니다.",
-                factionImg: "프리데.png"
-            },
-            {
-                name: "퍼셀", gender: "남성", age: "30세", height: "185cm",
-                race: "인간", faction: "아퀴논 왕국 / 국왕", ability: "검술 (그랜드소드마스터)",
-                keywords: "자기헌신, 단호함, 고독함", quote: "왕으로서의 책무다. 개인의 감정은 사치일 뿐.",
-                factionImg: "아퀴논 왕국.png"
-            },
-            {
-                name: "오스타토", gender: "남성", age: "약 900세", height: "191cm",
-                race: "드래곤", faction: "동섬 / 무소속", ability: "모든 원소 마법 (측정 불가)",
-                keywords: "오만, 호기심, 소유욕", quote: "오호, 하등한 필멸자들치고는 꽤나 재미있는 것을 만들었군.",
-                factionImg: "동섬.png"
-            },
-            {
-                name: "샐먼", gender: "남성", age: "약 100세", height: "178cm",
-                race: "인간", faction: "안트룸 / 마탑주", ability: "마법 (10서클)",
-                keywords: "연구광, 효율주의, 사회성 부족", quote: "흐음… 흥미로운 현상이군. 더 자세히 관찰할 필요가 있겠어.",
-                factionImg: "안트룸.png"
-            },
-            {
-                name: "쿠샨", gender: "남성", age: "24세", height: "186cm",
-                race: "수인 (늑대)", faction: "모험가 길드 / A랭크", ability: "검술 (소드마스터)",
-                keywords: "과묵, 충직, 단순함", quote: "내 뒤에 있어. 반드시 지킨다.",
-                factionImg: "모험가 길드.png"
-            },
-            {
-                name: "누크", gender: "남성", age: "22세", height: "189cm",
-                race: "마족 혼혈", faction: "모험가 길드 / A랭크", ability: "마법 (7서클)",
-                keywords: "폭력적, 고압적, 방어적", quote: "거슬리니까 저리 꺼져. 내게서 뭘 더 빼앗으려고.",
-                factionImg: "모험가 길드.png"
-            },
-            {
-                name: "세즈", gender: "남성", age: "약 200세", height: "185cm",
-                race: "엘프", faction: "모험가 길드 / A랭크", ability: "정령술 (A)",
-                keywords: "왕자병, 자기중심적, 허세", quote: "이 몸의 위대함을 몰라보다니, 넌 아직 안목이 부족하군.",
-                factionImg: "모험가 길드.png"
-            }
-        ];
-
-        // 4. 인물 도감 DOM 렌더링
-        const menuUl = document.getElementById('char-menu');
-        const detailsWrapper = document.getElementById('char-details-wrapper');
-        const track = document.getElementById('portrait-track');
-
-        characters.forEach((char, index) => {
-            // 좌측 메뉴 생성
-            const li = document.createElement('li');
-            li.innerText = char.name;
-            li.onclick = () => selectCharacter(index);
-            li.id = `menu-${index}`;
-            menuUl.appendChild(li);
-
-            // 중앙 상세 정보 & 갤러리 생성 (수정된 flex 레이아웃 적용)
-            const view = document.createElement('div');
-            view.className = 'char-view';
-            view.id = `view-${index}`;
-            view.innerHTML = `
-                <div class="char-quote">"${char.quote}"</div>
-                
-                <div class="char-content-flex">
-                    <div class="metal-panel char-info-card">
-                        <h3>${char.name}</h3>
-                        <table class="char-table">
-                            <tr><th>성별</th><td>${char.gender}</td></tr>
-                            <tr><th>나이</th><td>${char.age}</td></tr>
-                            <tr><th>신장</th><td>${char.height}</td></tr>
-                            <tr><th>종족</th><td>${char.race}</td></tr>
-                            <tr><th>소속</th><td>${char.faction}</td></tr>
-                            <tr><th>능력</th><td>${char.ability}</td></tr>
-                            <tr><th>성격</th><td>${char.keywords}</td></tr>
-                        </table>
-                        <img src="${char.factionImg}" alt="${char.faction}" class="faction-symbol" onerror="this.style.display='none'">
-                    </div>
-                    
-                    <div class="char-gallery">
-                        <div class="frame"><img src="${char.name}2.png" alt="${char.name} 갤러리 상단" onerror="this.style.opacity='0.2'"></div>
-                        <div class="frame"><img src="${char.name}3.png" alt="${char.name} 갤러리 하단" onerror="this.style.opacity='0.2'"></div>
-                    </div>
-                </div>
-            `;
-            detailsWrapper.appendChild(view);
-
-            // 우측 초상화 슬라이더 생성 (이름1.png 사용)
-            const portrait = document.createElement('div');
-            portrait.className = 'portrait-item';
-            portrait.id = `portrait-${index}`;
-            portrait.innerText = char.name;
-            portrait.style.backgroundImage = `url('${char.name}1.png')`;
-            portrait.style.backgroundSize = 'cover';
-            portrait.onclick = () => selectCharacter(index);
-            track.appendChild(portrait);
-        });
-
-        // 5. 캐릭터 전환 인터랙션 로직
-        let currentCharIndex = 0;
-        let isAnimating = false;
-
-        function selectCharacter(index) {
-            if(index < 0 || index >= characters.length) return;
-            currentCharIndex = index;
-            
-            // UI 상태 초기화
-            document.querySelectorAll('#char-menu li').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.char-view').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.portrait-item').forEach(el => el.classList.remove('active'));
-
-            // 활성화
-            document.getElementById(`menu-${index}`).classList.add('active');
-            document.getElementById(`view-${index}`).classList.add('active');
-            document.getElementById(`portrait-${index}`).classList.add('active');
-
-            // 초상화 트랙 이동 (중앙 정렬)
-            const itemHeight = 80 + 30; // height + gap
-            const offset = (track.parentElement.offsetHeight / 2) - (itemHeight / 2) - (index * itemHeight);
-            track.style.transform = `translateY(${offset}px)`;
-        }
-
-        // 초기 세팅
-        selectCharacter(0);
-
-        // 휠 이벤트로 부드러운 스크롤/슬라이드 넘기기
-        const pageChars = document.getElementById('page-chars');
-        pageChars.addEventListener('wheel', (e) => {
-            if(!pageChars.classList.contains('active')) return;
-            if(isAnimating) return;
-            
-            isAnimating = true;
-            if(e.deltaY > 0) {
-                if(currentCharIndex < characters.length - 1) selectCharacter(currentCharIndex + 1);
-            } else {
-                if(currentCharIndex > 0) selectCharacter(currentCharIndex - 1);
-            }
-            
-            setTimeout(() => { isAnimating = false; }, 600); // 쿨타임
-        });
-
-    </script>
 </body>
 </html>
