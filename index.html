@@ -233,18 +233,43 @@
         .char-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .char-table th { text-align: left; padding: 10px 0; color: var(--c-silver); border-bottom: 1px solid rgba(255,255,255,0.1); width: 120px; }
         .char-table td { padding: 10px 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .faction-symbol { position: absolute; right: 20px; bottom: 20px; width: 80px; height: 80px; object-fit: contain; opacity: 0.8; }
+.faction-symbol { 
+    position: absolute; 
+    right: 20px; 
+    bottom: 20px; 
+    width: 100px; 
+    height: 100px; /* 로고를 살짝 키워서 워터마크 느낌 강조 */
+    object-fit: contain; 
+    opacity: 0.15; /* 투명도를 0.8 -> 0.15로 낮춰서 글자 방해 안 하게 설정 */
+    z-index: 0; /* 로고를 맨 뒤로 보냄 */
+    pointer-events: none; /* 마우스 간섭 방지 */
+}
+
+/* 아래 코드를 .faction-symbol 밑에 새로 추가해 주세요 */
+.char-info-card h3,
+.char-info-card .char-table {
+    position: relative;
+    z-index: 1; /* 글자와 테이블이 로고 위로 확실히 올라오게 설정 */
+}
 
         /* 우측: 갤러리 및 초상화 슬라이더 */
         .char-right-panel { display: flex; align-items: center; gap: 40px; width: 600px; justify-content: flex-end; }
         
         .char-gallery { display: flex; flex-direction: column; gap: 20px; }
         /* 수정됨: 이미지 블록이 업로드한 이미지 비율을 따라가도록 height: auto 조정 */
-        .char-gallery .frame {
-            width: 250px; height: auto; min-height: 100px; border: 2px solid var(--c-gold); padding: 5px;
-            background: rgba(0,0,0,0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-            position: relative; display: flex; align-items: center; justify-content: center;
-        }
+.char-gallery .frame {
+    width: 450px; /* 기존 250px에서 450px로 확대! 화면에 맞게 조절하세요 */
+    height: auto; 
+    min-height: 100px; 
+    border: 2px solid var(--c-gold); 
+    padding: 5px;
+    background: rgba(0,0,0,0.5); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
         .char-gallery .frame::before {
             content:''; position: absolute; top:-5px; left:-5px; right:-5px; bottom:-5px;
             border: 1px solid rgba(197,160,89,0.5); pointer-events: none;
