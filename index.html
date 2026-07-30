@@ -6,7 +6,7 @@
     <title>엘룬트 (ELUNT) - 공식 홈페이지 및 코덱스</title>
     <!-- 고급스러운 세리프 폰트와 가독성 좋은 본문 폰트 적용 -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
-    
+   
     <style>
         /* ==========================================================================
            [1부] 공통 및 레이아웃 CSS
@@ -60,7 +60,7 @@
         /* 텍스트 유틸리티 */
         .title-gold { color: var(--c-gold); font-family: var(--font-title); font-weight: 700; text-transform: uppercase; }
         .deco-line { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--c-gold), transparent); margin: 20px 0; }
-        
+       
         /* 반투명 메탈 패널 */
         .metal-panel {
             background: var(--c-panel-bg);
@@ -75,7 +75,7 @@
            1페이지 (메인 히어로 & 분할 화면)
            ========================================================================== */
         #page-main { overflow-y: auto; }
-        
+       
         .hero {
             height: 100vh;
             background: linear-gradient(to bottom, rgba(5,5,7,0.3), var(--c-black)), url('지도.png') center/cover no-repeat;
@@ -133,12 +133,12 @@
         }
         .split-section:nth-child(1)::before { background-image: radial-gradient(circle, rgba(197, 160, 89, 0.15), var(--c-black)); }
         .split-section:nth-child(2)::before { background-image: radial-gradient(circle, var(--c-navy), var(--c-black)); }
-        
+       
         .split-section:hover { flex: 1.5; }
         .split-section:hover::before { opacity: 0.6; }
         .split-section:hover h2 { transform: scale(1.1); color: #fff; text-shadow: 0 0 20px var(--c-gold); }
         .split-screen:hover .split-section:not(:hover) { filter: grayscale(100%) brightness(0.5); }
-        
+       
         .split-section h2 {
             position: relative; z-index: 2;
             font-size: clamp(2rem, 5vw, 3rem); color: var(--c-gold);
@@ -150,7 +150,7 @@
            ========================================================================== */
         #page-world { background: url('지도.png') center/cover fixed; }
         .world-overlay { background: rgba(5, 5, 7, 0.85); min-height: 100vh; display: flex; }
-        
+       
         .world-sidebar {
             width: 300px; padding: 50px 30px;
             border-right: 1px solid rgba(197, 160, 89, 0.3);
@@ -171,15 +171,15 @@
         .world-content { flex: 1; padding: 50px 8vw; height: 100vh; overflow-y: auto; scroll-behavior: smooth; }
         .codex-section { margin-bottom: 100px; opacity: 0; transform: translateY(30px); transition: 0.6s all ease-out; }
         .codex-section.visible { opacity: 1; transform: translateY(0); }
-        
+       
         .codex-section h2 { font-size: 2.5rem; color: var(--c-gold); margin-bottom: 20px; font-family: var(--font-title); }
         .codex-section h3 { font-size: 1.8rem; color: #fff; margin: 40px 0 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .codex-section h4 { font-size: 1.3rem; color: var(--c-silver); margin: 20px 0 10px; }
 
         /* 카드형 레이아웃 */
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-        .codex-card { 
-            background: rgba(26, 26, 36, 0.8); border: 1px solid rgba(160, 165, 176, 0.2); 
+        .codex-card {
+            background: rgba(26, 26, 36, 0.8); border: 1px solid rgba(160, 165, 176, 0.2);
             padding: 20px; border-radius: 4px; transition: 0.3s; position: relative; overflow: hidden;
         }
         .codex-card:hover { border-color: var(--c-gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
@@ -210,7 +210,7 @@
         #page-chars { background: var(--c-black); }
 
         .char-layout { position: relative; z-index: 10; display: flex; height: 100vh; padding: 50px; justify-content: space-between; overflow-y: hidden; }
-        
+       
         /* 좌측: 목차 */
         .char-list { width: 250px; flex-shrink: 0; }
         .char-list h2 { font-size: 2rem; color: var(--c-gold); border-bottom: 1px solid var(--c-gold); padding-bottom: 10px; margin-bottom: 30px; }
@@ -222,29 +222,29 @@
         .char-details-container { flex: 1; margin: 0 40px; position: relative; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
         .char-view { display: none; animation: slideUp 0.5s ease forwards; }
         .char-view.active { display: block; }
-        
+       
         .char-content-wrap { display: flex; gap: 40px; align-items: stretch; }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
         .char-quote { font-size: clamp(1.2rem, 2vw, 1.8rem); font-family: var(--font-title); color: #fff; text-shadow: 2px 2px 10px #000; margin-bottom: 30px; font-style: italic; word-break: keep-all; }
-        
+       
         .char-info-card { flex: 1; min-width: 300px; position: relative; }
         .char-info-card h3 { font-size: clamp(2rem, 4vw, 3rem); color: var(--c-gold); margin-bottom: 20px; font-family: var(--font-title); letter-spacing: 5px; }
         .char-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         .char-table th { text-align: left; padding: 10px 0; color: var(--c-silver); border-bottom: 1px solid rgba(255,255,255,0.1); width: 30%; min-width: 80px; }
         .char-table td { padding: 10px 0; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); word-break: keep-all; }
-        
+       
         .faction-symbol { position: absolute; right: 20px; bottom: 20px; width: 100px; height: 100px; object-fit: contain; opacity: 0.15; z-index: 0; pointer-events: none; }
         .char-info-card h3, .char-info-card .char-table { position: relative; z-index: 1; }
 
         /* 우측: 갤러리 및 초상화 슬라이더 */
         .char-right-panel { display: flex; align-items: center; gap: 40px; flex-shrink: 0; }
-        
+       
         .char-gallery { display: flex; flex-direction: column; gap: 20px; flex: 1; }
         .char-gallery .frame {
-            width: 100%; max-width: 450px; height: auto; min-height: 100px; 
-            border: 2px solid var(--c-gold); padding: 5px; background: rgba(0,0,0,0.5); 
+            width: 100%; max-width: 450px; height: auto; min-height: 100px;
+            border: 2px solid var(--c-gold); padding: 5px; background: rgba(0,0,0,0.5);
             box-shadow: 0 10px 20px rgba(0,0,0,0.8); position: relative; display: flex; align-items: center; justify-content: center;
         }
         .char-gallery .frame::before { content:''; position: absolute; top:-5px; left:-5px; right:-5px; bottom:-5px; border: 1px solid rgba(197,160,89,0.5); pointer-events: none; }
@@ -258,7 +258,7 @@
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
         .portrait-track { display: flex; flex-direction: column; gap: 30px; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
-        
+       
         .portrait-item {
             width: 80px; height: 80px; flex-shrink: 0; border-radius: 50%; border: 2px solid var(--c-silver);
             overflow: hidden; opacity: 0.4; transform: scale(0.8); transition: all 0.4s;
@@ -285,25 +285,25 @@
             /* 1페이지: 메인 분할 화면 */
             .split-screen { flex-direction: column; }
             .split-section { border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-            
+           
             /* 2페이지: 세계관 코덱스 */
             .world-overlay { flex-direction: column; height: 100vh; }
-            .world-sidebar { 
-                width: 100%; height: auto; position: relative; padding: 20px 20px 10px 20px; 
-                border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.3); z-index: 10; 
+            .world-sidebar {
+                width: 100%; height: auto; position: relative; padding: 20px 20px 10px 20px;
+                border-right: none; border-bottom: 1px solid rgba(197, 160, 89, 0.3); z-index: 10;
             }
             .world-sidebar h2 { margin-bottom: 15px; font-size: 1.3rem; }
             .world-nav { display: flex; overflow-x: auto; gap: 15px; white-space: nowrap; padding-bottom: 10px; }
             .world-nav li { margin-bottom: 0; }
             .world-nav a { border-left: none; border-bottom: 2px solid transparent; padding: 5px; }
             .world-nav a:hover, .world-nav a.active { border-left-color: transparent; border-bottom-color: var(--c-gold); background: transparent; color: var(--c-gold); }
-            
+           
             .world-content { height: 100%; padding: 30px 20px; overflow-y: auto; }
             .codex-section { margin-bottom: 60px; }
 
             /* 3페이지: 인물 도감 */
-            .char-layout { 
-                flex-direction: column; padding: 70px 20px 20px 20px; overflow-y: auto; justify-content: flex-start; 
+            .char-layout {
+                flex-direction: column; padding: 70px 20px 20px 20px; overflow-y: auto; justify-content: flex-start;
             }
             .char-list { width: 100%; margin-bottom: 20px; }
             .char-list h2 { margin-bottom: 15px; font-size: 1.5rem; border-bottom: none; }
@@ -313,14 +313,14 @@
 
             .char-details-container { margin: 0; margin-bottom: 30px; }
             .char-content-wrap { flex-direction: column; gap: 20px; }
-            
+           
             .char-right-panel { width: 100%; justify-content: center; flex-direction: column; gap: 20px; }
             .char-gallery { flex-direction: row; overflow-x: auto; width: 100%; gap: 15px; padding-bottom: 10px; }
             .char-gallery .frame { min-width: 250px; flex: 1; }
-            
+           
             /* 초상화 슬라이더 가로 전환 */
             .portrait-slider {
-                width: 100%; height: 130px; 
+                width: 100%; height: 130px;
                 mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
                 -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
             }
@@ -365,12 +365,12 @@
                 </ul>
             </aside>
             <main class="world-content">
-                
+               
                 <!-- 개요 -->
                 <article id="overview" class="codex-section visible">
                     <h2 class="title-gold">개요</h2>
                     <div class="deco-line"></div>
-                    
+                   
                     <h3>세계</h3>
                     <div class="metal-panel">
                         <p>행성 <strong>엘룬트</strong><br>
@@ -563,8 +563,8 @@
 
                     <h3 style="margin-top: 40px;">마물</h3>
                     <div class="metal-panel">
-                        <p><strong>[특징]</strong> 낮은 지능과 공격적인 성향을 지녔으며, 서식지 환경에 따라 식물, 곤충, 언데드 등 다양한 형태로 진화했습니다.</p>
-                        <p style="margin-top: 15px;"><strong>[규모]</strong> 떼를 지어 다니는 소형 개체부터, 단독으로 재앙급 피해를 주는 초대형 개체까지 존재합니다.</p>
+                        <p><strong>[특징]</strong> 낮은 지능과 공격적인 성향을 지녔으며, 서식지 환경에 따라 식물, 곤충, 언데드 등 다양한 형태</p>
+                        <p style="margin-top: 15px;"><strong>[규모]</strong> 떼를 지어 다니는 소형 개체부터, 단독으로 재앙급 피해를 주는 초대형 개체까지 존재</p>
                     </div>
 
                     <h3 style="margin-top: 40px;">활동 개요</h3>
@@ -629,7 +629,7 @@
         function navigateTo(pageId) {
             document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
-            
+           
             if(pageId === 'page-world') {
                 const sections = document.querySelectorAll('.codex-section');
                 sections.forEach(s => s.classList.remove('visible'));
@@ -719,7 +719,7 @@
                         </table>
                         <img src="${char.factionImg}" alt="${char.faction}" class="faction-symbol" onerror="this.style.display='none'">
                     </div>
-                    
+                   
                     <div class="char-gallery">
                         <div class="frame"><img src="${char.name}2.png" alt="${char.name} 갤러리 1" onerror="this.style.opacity='0.2'"></div>
                         <div class="frame"><img src="${char.name}3.png" alt="${char.name} 갤러리 2" onerror="this.style.opacity='0.2'"></div>
@@ -746,7 +746,7 @@
         function selectCharacter(index) {
             if(index < 0 || index >= characters.length) return;
             currentCharIndex = index;
-            
+           
             document.querySelectorAll('#char-menu li').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.char-view').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.portrait-item').forEach(el => el.classList.remove('active'));
@@ -763,7 +763,7 @@
                 const containerWidth = track.parentElement.offsetWidth || window.innerWidth;
                 const offset = (containerWidth / 2) - (80 / 2) - (index * itemWidth);
                 track.style.transform = `translateX(${offset}px)`;
-                
+               
                 // 상단 메뉴 자동 수평 스크롤 이동
                 activeMenu.parentElement.scrollLeft = activeMenu.offsetLeft - 20;
             } else {
@@ -790,14 +790,14 @@
             if(window.innerWidth <= 1024) return; // 모바일 환경에서는 페이지 기본 스크롤 유지를 위해 차단
             if(!pageChars.classList.contains('active')) return;
             if(isAnimating) return;
-            
+           
             isAnimating = true;
             if(e.deltaY > 0) {
                 if(currentCharIndex < characters.length - 1) selectCharacter(currentCharIndex + 1);
             } else {
                 if(currentCharIndex > 0) selectCharacter(currentCharIndex - 1);
             }
-            
+           
             setTimeout(() => { isAnimating = false; }, 600); // 쿨타임
         });
 
