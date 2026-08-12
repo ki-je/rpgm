@@ -260,6 +260,8 @@
 
         .char-quote { font-size: clamp(1.2rem, 2vw, 1.8rem); font-family: var(--font-title); color: #fff; text-shadow: 2px 2px 10px #000; margin-bottom: 30px; font-style: italic; word-break: keep-all; }
        
+        .char-profile-mobile { display: none; }
+
         .char-info-card { flex: 1; min-width: 300px; position: relative; }
         .char-info-card h3 { font-size: clamp(2rem, 4vw, 3rem); color: var(--c-gold); margin-bottom: 20px; font-family: var(--font-title); letter-spacing: 5px; }
         .char-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
@@ -281,12 +283,16 @@
         .char-gallery img { width: 100%; height: auto; object-fit: contain; display: block; }
 
         .portrait-slider {
-            height: 80vh; width: 120px; display: flex; flex-direction: column; align-items: center;
-            justify-content: center; position: relative; overflow: hidden;
+            height: 80vh; width: 120px; display: block; position: relative; overflow: hidden;
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
-        .portrait-track { display: flex; flex-direction: column; gap: 30px; transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); }
+        .portrait-track { 
+            position: absolute; top: 50%; left: 50%;
+            display: flex; flex-direction: column; gap: 30px; 
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+            transform: translate(-50%, 0);
+        }
        
         .portrait-item {
             width: 80px; height: 80px; flex-shrink: 0; border-radius: 50%; border: 2px solid var(--c-silver);
@@ -328,8 +334,9 @@
             .codex-section { margin-bottom: 60px; }
             .map-interactive-wrapper { padding-top: 100%; }
 
+            /* 캐릭터 레이아웃 모바일 최적화 */
             .char-layout {
-                flex-direction: column; padding: 70px 20px 20px 20px; overflow-y: auto; overflow-x: hidden; justify-content: flex-start;
+                flex-direction: column; padding: 70px 20px 120px 20px; overflow-y: auto; overflow-x: hidden; justify-content: flex-start;
             }
             .char-list { width: 100%; margin-bottom: 20px; }
             .char-list h2 { margin-bottom: 15px; font-size: 1.5rem; border-bottom: none; }
@@ -337,19 +344,61 @@
             .char-list ul li { margin-bottom: 0; font-size: 1rem; }
             .char-list ul li.active { transform: translateY(-3px); }
 
+            /* 인물 사진 상단 배치 */
+            .char-profile-mobile {
+                display: block;
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                border: 2px solid var(--c-gold);
+                margin: 0 auto 20px auto;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            }
+            .char-profile-mobile img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
             .char-details-container { margin: 0; margin-bottom: 30px; }
             .char-content-wrap { flex-direction: column; gap: 20px; }
            
-            .char-right-panel { width: 100%; justify-content: center; flex-direction: column; gap: 20px; padding-bottom: 40px;}
+            .char-right-panel { width: 100%; justify-content: center; flex-direction: column; gap: 20px; padding-bottom: 0; position: static; }
             .char-gallery { flex-direction: row; overflow-x: auto; width: 100%; gap: 15px; padding-bottom: 10px; }
             .char-gallery .frame { min-width: 250px; flex: 1; }
            
+            /* 네비게이션 하단 고정 */
             .portrait-slider {
-                width: 100%; height: 130px; touch-action: pan-x;
-                mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%; 
+                height: 100px; 
+                background: rgba(5, 5, 7, 0.95);
+                border-top: 1px solid rgba(197, 160, 89, 0.4);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                touch-action: pan-x;
+                mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+                -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
             }
-            .portrait-track { flex-direction: row; gap: 15px; }
+            .portrait-track {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                flex-direction: row;
+                gap: 15px;
+                transform: translate(0, -50%);
+            }
+            .portrait-item {
+                width: 60px;
+                height: 60px;
+                border-width: 1px;
+            }
+            .portrait-name {
+                font-size: 0.7rem;
+            }
             .scroll-indicator { display: none; }
         }
     </style>
@@ -405,32 +454,32 @@
 
                     <h3 style="margin-top: 40px;">세계 구분</h3>
                     <div class="card-grid">
-                        <div class="codex-card"><h4 class="title-gold">천계 (프리데)</h4><p>천사들의 거주지</p></div>
+                        <div class="codex-card"><h4 class="title-gold">천계 『프리데』</h4><p>천사들의 거주지</p></div>
                         <div class="codex-card"><h4 class="title-gold">중간계</h4><p>다양한 종족이 공존하는 주 무대</p></div>
-                        <div class="codex-card"><h4 class="title-gold">지하계 (우르테인)</h4><p>악마들의 거주지</p></div>
+                        <div class="codex-card"><h4 class="title-gold">지하계 『우르테인』</h4><p>악마들의 거주지</p></div>
                     </div>
                 </article>
 
                 <!-- 지역 (인터랙티브 맵) -->
                 <article id="regions" class="codex-section">
-                    <h2 class="title-gold">지역 (중간계 주요 대륙 및 지역)</h2>
+                    <h2 class="title-gold">지역</h2>
                     <div class="deco-line"></div>
-                    <p style="color: var(--c-silver); margin-bottom: 20px;">* 아래 버튼 또는 지도 위의 마커를 클릭하면 해당 대륙/지역의 상세 정보가 나타납니다.</p>
+                    <p style="color: var(--c-silver); margin-bottom: 20px;">* 아래 버튼 또는 지도 위의 마커를 클릭하면, 지도 하단에 해당 대륙/지역의 상세 정보가 나타납니다.</p>
 
                     <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                        <button class="tier-step" onclick="showRegion('천계')" style="cursor:pointer; flex: 1;">천계 (프리데)</button>
-                        <button class="tier-step" onclick="showRegion('지하계')" style="cursor:pointer; flex: 1;">지하계 (우르테인)</button>
+                        <button class="tier-step" onclick="showRegion('천계')" style="cursor:pointer; flex: 1;">천계 『프리데』</button>
+                        <button class="tier-step" onclick="showRegion('지하계')" style="cursor:pointer; flex: 1;">지하계 『우르테인』</button>
                     </div>
 
                     <div class="map-interactive-wrapper">
                         <!-- 핀 위치는 제공된 이미지를 바탕으로 절대좌표(%)로 배치했습니다 -->
-                        <div class="map-pin" style="top: 12%; left: 50%;" onclick="showRegion('안트룸', this)" title="북대륙 (안트룸)"></div>
-                        <div class="map-pin" style="top: 35%; left: 15%;" onclick="showRegion('메르사', this)" title="서대륙 (메르사)"></div>
-                        <div class="map-pin" style="top: 45%; left: 50%;" onclick="showRegion('아퀴논', this)" title="중앙대륙 (아퀴논)"></div>
-                        <div class="map-pin" style="top: 35%; left: 85%;" onclick="showRegion('그람하스', this)" title="동대륙 (그람하스)"></div>
-                        <div class="map-pin" style="top: 70%; left: 50%;" onclick="showRegion('크로헨', this)" title="남대륙 (크로헨)"></div>
-                        <div class="map-pin" style="top: 80%; left: 15%;" onclick="showRegion('유벤타', this)" title="서쪽 해역 (유벤타)"></div>
-                        <div class="map-pin" style="top: 90%; left: 50%;" onclick="showRegion('아그리아', this)" title="남섬 (아그리아)"></div>
+                        <div class="map-pin" style="top: 12%; left: 50%;" onclick="showRegion('안트룸', this)" title="북대륙 『안트룸』"></div>
+                        <div class="map-pin" style="top: 35%; left: 15%;" onclick="showRegion('메르사', this)" title="서대륙 『메르사』"></div>
+                        <div class="map-pin" style="top: 45%; left: 50%;" onclick="showRegion('아퀴논', this)" title="중앙대륙 『아퀴논』"></div>
+                        <div class="map-pin" style="top: 35%; left: 85%;" onclick="showRegion('그람하스', this)" title="동대륙 『그람하스』"></div>
+                        <div class="map-pin" style="top: 70%; left: 50%;" onclick="showRegion('크로헨', this)" title="남대륙 『크로헨』"></div>
+                        <div class="map-pin" style="top: 80%; left: 15%;" onclick="showRegion('유벤타', this)" title="서쪽 해역 『유벤타』"></div>
+                        <div class="map-pin" style="top: 90%; left: 50%;" onclick="showRegion('아그리아', this)" title="남섬 『아그리아』"></div>
                         <div class="map-pin" style="top: 80%; left: 85%;" onclick="showRegion('동섬', this)" title="동섬"></div>
                     </div>
 
@@ -680,16 +729,16 @@
         });
 
         const regionData = {
-            '천계': { img: '', title: '천계 (프리데)', desc: '천사들의 주 거주지입니다. 중간계와 분리되어 있는 신성한 영역입니다.' },
-            '지하계': { img: '', title: '지하계 (우르테인)', desc: '악마들의 거주지입니다. 빛이 닿지 않는 어둠과 암흑력이 지배하는 공간입니다.' },
-            '안트룸': { img: '안트룸.png', title: '북대륙 (안트룸)', desc: '<ul><li>지식의 땅</li><li>마탑, 마법사, 마법공학자 중심의 사회입니다.</li><li>혹독한 기후 속에 고도의 마법 기술이 발전했습니다.</li></ul>' },
-            '메르사': { img: '메르사.png', title: '서대륙 (메르사)', desc: '<ul><li>거대한 숲과 자연이 어우러진 엘프들의 왕국입니다.</li><li>정령 친화적인 환경을 유지하고 있습니다.</li></ul>' },
-            '아퀴논': { img: '아퀴논.png', title: '중앙대륙 (아퀴논)', desc: '<ul><li>최대 규모의 대륙입니다.</li><li>왕실, 귀족, 자본가가 중심이 되어 움직이며 다종족이 공존합니다.</li><li>세계의 경제 및 정치적 중심지입니다.</li></ul>' },
-            '그람하스': { img: '그람하스.png', title: '동대륙 (그람하스)', desc: '<ul><li>상대적으로 미개발된 척박한 지역입니다.</li><li>위험한 동식물과 마물이 다수 서식하며, 극소수의 마족이 거주합니다.</li></ul>' },
-            '크로헨': { img: '크로헨.png', title: '남대륙 (크로헨)', desc: '<ul><li>수인들의 왕국입니다.</li><li>부족 단위의 사회 구조를 가지며, 영역 구분이 매우 엄격합니다.</li></ul>' },
-            '유벤타': { img: '유벤타.png', title: '서쪽 해역 (유벤타)', desc: '<ul><li>깊은 바닷속 인어들의 왕국이 존재하는 신비로운 해역입니다.</li></ul>' },
-            '아그리아': { img: '아그리아.png', title: '남섬 (아그리아)', desc: '<ul><li>신성연방이 위치한 성스러운 섬입니다.</li><li>이곳의 사제들은 신력이 아닌 성력을 주로 다룹니다.</li></ul>' },
-            '동섬': { img: '동섬.png', title: '동섬', desc: '<ul><li>필멸자들의 발길이 닿지 않는 드래곤의 둥지입니다.</li></ul>' }
+            '천계': { img: '천계.png', title: '천계 『프리데』', desc: '천사들의 주 거주지. 중간계와 분리되어 있는 신성한 영역' },
+            '지하계': { img: '우르테인.png', title: '지하계 『우르테인』', desc: '악마들의 거주지. 빛이 닿지 않는 어둠과 암흑력이 지배하는 공간' },
+            '안트룸': { img: '안트룸.png', title: '북대륙 『안트룸』', desc: '<ul><li>지식의 땅</li><li>마탑, 마법사, 마법공학자 중심 사회</li><li>혹독한 기후 속에 고도의 마법 기술이 발전</li></ul>' },
+            '메르사': { img: '메르사.png', title: '서대륙 『메르사』', desc: '<ul><li>거대한 숲과 자연이 어우러진 엘프들의 왕국</li><li>정령 친화적인 환경을 유지</li></ul>' },
+            '아퀴논': { img: '아퀴논.png', title: '중앙대륙 『아퀴논』', desc: '<ul><li>최대 규모의 대륙</li><li>왕실, 귀족, 자본가가 중심이 되어 움직이며 다종족이 공존</li><li>세계의 경제 및 정치적 중심지</li></ul>' },
+            '그람하스': { img: '그람하스.png', title: '동대륙 『그람하스』', desc: '<ul><li>상대적으로 미개발된 척박한 지역</li><li>위험한 동식물과 마물이 다수 서식하며, 극소수의 마족이 거주</li></ul>' },
+            '크로헨': { img: '크로헨.png', title: '남대륙 『크로헨』', desc: '<ul><li>수인들의 왕국</li><li>부족 단위의 사회 구조를 가지며, 영역 구분이 매우 엄격</li></ul>' },
+            '유벤타': { img: '유벤타.png', title: '서쪽 해역 『유벤타』', desc: '<ul><li>깊은 바닷속 인어들의 왕국이 존재하는 신비로운 해역</li></ul>' },
+            '아그리아': { img: '아그리아.png', title: '남섬 『아그리아』', desc: '<ul><li>신성연방이 위치한 섬</li><li>이곳의 사제들은 성력을 주로 다룸</li></ul>' },
+            '동섬': { img: '동섬.png', title: '동섬', desc: '<ul><li>필멸자들의 발길이 닿지 않는 드래곤의 둥지</li></ul>' }
         };
 
         function showRegion(regionKey, element = null) {
@@ -746,6 +795,10 @@
                 <div class="char-quote">"${char.quote}"</div>
                 <div class="char-content-wrap">
                     <div class="metal-panel char-info-card">
+                        <!-- 모바일 최상단에 보일 프로필 이미지 추가 -->
+                        <div class="char-profile-mobile">
+                            <img src="${char.name}1.png" alt="${char.name} 초상화" onerror="this.style.display='none'">
+                        </div>
                         <h3>${char.name}</h3>
                         <table class="char-table">
                             <tr><th>성별</th><td>${char.gender}</td></tr>
@@ -796,16 +849,17 @@
 
             const isMobile = window.innerWidth <= 1024;
             if (isMobile) {
-                const itemWidth = 80 + 15;
-                const containerWidth = track.parentElement.offsetWidth || window.innerWidth;
-                const offset = (containerWidth / 2) - (80 / 2) - (index * itemWidth);
-                track.style.transform = `translateX(${offset}px)`;
+                const itemWidth = 60; // css .portrait-item width
+                const gap = 15;       // css .portrait-track gap
+                const offset = -(index * (itemWidth + gap)) - (itemWidth / 2);
+                track.style.transform = `translate(${offset}px, -50%)`;
+                
                 activeMenu.parentElement.scrollLeft = activeMenu.offsetLeft - 20;
             } else {
-                const itemHeight = 80 + 30;
-                const containerHeight = track.parentElement.offsetHeight;
-                const offset = (containerHeight / 2) - (80 / 2) - (index * itemHeight);
-                track.style.transform = `translateY(${offset}px)`;
+                const itemHeight = 80;
+                const gap = 30;
+                const offset = -(index * (itemHeight + gap)) - (itemHeight / 2);
+                track.style.transform = `translate(-50%, ${offset}px)`;
             }
         }
 
