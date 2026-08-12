@@ -204,7 +204,7 @@
         .map-pin:hover, .map-pin.active {
             background: #fff; border-color: var(--c-gold); transform: translate(-50%, -50%) scale(1.3);
         }
-        
+       
         .region-info-panel {
             background: var(--c-panel-bg); border: 1px solid rgba(197, 160, 89, 0.5);
             padding: 30px; border-radius: 8px; min-height: 180px;
@@ -287,10 +287,10 @@
             mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
             -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
         }
-        .portrait-track { 
+        .portrait-track {
             position: absolute; top: 50%; left: 50%;
-            display: flex; flex-direction: column; gap: 30px; 
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+            display: flex; flex-direction: column; gap: 30px;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
             transform: translate(-50%, 0);
         }
        
@@ -373,8 +373,8 @@
                 position: fixed;
                 bottom: 0;
                 left: 0;
-                width: 100%; 
-                height: 100px; 
+                width: 100%;
+                height: 100px;
                 background: rgba(5, 5, 7, 0.95);
                 border-top: 1px solid rgba(197, 160, 89, 0.4);
                 backdrop-filter: blur(10px);
@@ -747,7 +747,7 @@
 
             const data = regionData[regionKey];
             const display = document.getElementById('region-info-display');
-            
+           
             let imgHtml = '';
             if(data.img) {
                 imgHtml = `<img src="${data.img}" alt="${data.title} 심볼" class="icon" onerror="this.style.display='none'">`;
@@ -853,7 +853,7 @@
                 const gap = 15;       // css .portrait-track gap
                 const offset = -(index * (itemWidth + gap)) - (itemWidth / 2);
                 track.style.transform = `translate(${offset}px, -50%)`;
-                
+               
                 activeMenu.parentElement.scrollLeft = activeMenu.offsetLeft - 20;
             } else {
                 const itemHeight = 80;
@@ -879,7 +879,7 @@
             isAnimating = true;
             if(e.deltaY > 0) {
                 if(currentCharIndex < characters.length - 1) selectCharacter(currentCharIndex + 1);
-                else selectCharacter(0); 
+                else selectCharacter(0);
             } else {
                 if(currentCharIndex > 0) selectCharacter(currentCharIndex - 1);
                 else selectCharacter(characters.length - 1);
@@ -887,25 +887,45 @@
             setTimeout(() => { isAnimating = false; }, 600);
         });
 
-        let touchStartX = 0;
+let touchStartX = 0;
         let touchEndX = 0;
-        const sliderContainer = document.getElementById('portrait-slider');
+        let touchStartY = 0;
+        let touchEndY = 0;
         
-        sliderContainer.addEventListener('touchstart', e => {
+        // 스와이프 타겟을 하단 바가 아닌 '캐릭터 레이아웃 전체'로 변경
+        const swipeTarget = document.querySelector('.char-layout');
+        
+        swipeTarget.addEventListener('touchstart', e => {
             touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
         }, {passive: true});
 
-        sliderContainer.addEventListener('touchend', e => {
+        swipeTarget.addEventListener('touchend', e => {
+            // 갤러리 이미지 영역이나 다른 좌우 스크롤 메뉴를 터치했을 땐 화면 넘김 무시
+            if (e.target.closest('.char-gallery') || e.target.closest('.char-list') || e.target.closest('.portrait-slider')) {
+                return;
+            }
+
             touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            
+            // 사용자가 화면을 위아래로 스크롤하려던 목적이 크면 좌우 스와이프로 인식하지 않음
+            if (Math.abs(touchEndY - touchStartY) > Math.abs(touchEndX - touchStartX)) {
+                return;
+            }
+
             handleSwipe();
         }, {passive: true});
 
         function handleSwipe() {
             if(window.innerWidth > 1024) return;
+            
+            // 화면을 왼쪽으로 넘김 (다음 캐릭터)
             if (touchEndX < touchStartX - 50) { 
                 if(currentCharIndex < characters.length - 1) selectCharacter(currentCharIndex + 1);
                 else selectCharacter(0);
             }
+            // 화면을 오른쪽으로 넘김 (이전 캐릭터)
             if (touchEndX > touchStartX + 50) {
                 if(currentCharIndex > 0) selectCharacter(currentCharIndex - 1);
                 else selectCharacter(characters.length - 1);
@@ -914,3 +934,4 @@
     </script>
 </body>
 </html>
+
